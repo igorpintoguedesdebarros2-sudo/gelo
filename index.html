@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>CIBRAGEL-GELO</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #ffffff;
+    }
+
+.principal img{
+  height: 200px;
+}
+
+.produto li {
+  display: inline-block;
+}
+
+    .item {
+      background: #fff;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    button {
+      padding: 6px 12px;
+      background: #25D366;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #carrinho {
+      margin-top: 20px;
+      background: #e1fbe3;
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    .parceiro img {
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="principal">
+<img src="cibragel-logo.png">
+  </div>
+
+  <h2>Produtos Disponíveis</h2>
+
+  <div class="produto">
+    <ul>
+      <li><div class="item">
+       <strong>Gelo Escama 20 kg</strong><br>
+       Preço: R$ 16,90<br>
+       <button onclick="adicionarCarrinho('Gelo Escama 20 kg', 16.90)">Adicionar ao carrinho</button>
+     </div></li> 
+     
+       <li><div class="item">
+         <strong>Carvão vegetal 3 Kg</strong><br>
+         Preço: R$ 16,90<br>
+         <button onclick="adicionarCarrinho('Carvão vegetal', 16.90)">Adicionar ao carrinho</button>
+       </div></li>
+     
+       <li><div class="item">
+         <strong>Gelo cubo filtrado 10 kg</strong><br>
+         Preço: R$ 16,00<br>
+         <button onclick="adicionarCarrinho('Gelo cubo filtrado 10 kg', 16.00)">Adicionar ao carrinho</button>
+       </div></li>
+     
+       <li><div class="item">
+         <strong>Gelo Escama 4 Kg ( Balde )</strong><br>
+         Preço: R$ 10,00<br>
+         <button onclick="adicionarCarrinho('Gelo Escama 4 kg (Balde)', 10.00)">Adicionar ao carrinho</button>
+       </div></li>
+     
+       <li><div class="item">
+        <strong>Sal grosso</strong><br>
+        Preço: R$ 4,00<br>
+        <button onclick="adicionarCarrinho('Sal grosso', 4.00)">Adicionar ao carrinho</button>
+      </div></li>
+     
+       <li><div class="item">
+         <strong>Carvão vegetal 6 kg</strong><br>
+         Preço: R$ 30,00<br>
+         <button onclick="adicionarCarrinho('Carvão vegetal', 30.00)">Adicionar ao carrinho</button>
+       </div></li> 
+     
+       <li><div class="item">
+         <strong>Gelo cubo filtrado 4 kg</strong><br>
+         Preço: R$ 10,00<br>
+         <button onclick="adicionarCarrinho('Gelo cubo filtrado 4 kg', 10.00)">Adicionar ao carrinho</button>
+       </div></li>
+     
+       <li><div class="item">
+           <strong>Acendedor de Churrasqueira</strong><br>
+           Preço: R$ 5,00<br>
+           <button onclick="adicionarCarrinho('Ascendedor de Churrasqueira', 5.00)">Adicionar ao carrinho</button>
+         </div></li>
+     </ul>
+  </div>
+
+  <div id="carrinho">
+    <h3>Carrinho</h3>
+    <ul id="listaCarrinho"></ul>
+    <p><strong>Total: R$ <span id="total">0.00</span></strong></p>
+    <button onclick="enviarWhatsApp()" id="botaoWhatsApp" disabled>Enviar pedido pelo WhatsApp</button>
+  </div>
+
+<h2>fale com nossa fabrica de gelo</h2>
+<button class="whatsapp-btn" onclick="abrirWhatsApp()">Falar no WhatsApp</button>
+
+  <h2>localização</h2>
+
+  <p>Rua Adolfo Bergamini, 190 - loja A - Engenho de Dentro, Rio de Janeiro - RJ, 20730-000, Brasil  CEP 20730.000</p>
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1837.685518235993!2d-43.298272645954945!3d-22.899681550548912!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x997d0ea9ec5637%3A0x616c37d98b234d1c!2sCibragel%20Gelo!5e0!3m2!1spt-BR!2sbr!4v1753110198077!5m2!1spt-BR!2sbr" width="300" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  
+  <h2>PARCERIAS</h2>
+  <div class="parceiro">
+    <img src="minha logo copy.jpeg">
+  </div>
+  
+  <script>
+    let carrinho = [];
+    let total = 0;
+
+    function adicionarCarrinho(nome, preco) {
+      carrinho.push({ nome, preco });
+      total += preco;
+      atualizarCarrinho();
+    }
+
+    function atualizarCarrinho() {
+      const lista = document.getElementById('listaCarrinho');
+      lista.innerHTML = '';
+      carrinho.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.nome} - R$ ${item.preco.toFixed(2)}`;
+        lista.appendChild(li);
+      });
+      document.getElementById('total').textContent = total.toFixed(2);
+      document.getElementById('botaoWhatsApp').disabled = carrinho.length === 0;
+    }
+
+    function enviarWhatsApp() {
+      const numero = "5521983376513"; // <-- Substitua pelo seu número com DDI + DDD
+      let mensagem = "Olá! Gostaria de comprar os seguintes itens:\n\n";
+      carrinho.forEach(item => {
+        mensagem += `🛒 ${item.nome} - R$ ${item.preco.toFixed(2)}\n`;
+      });
+      mensagem += `\n💰 Total: R$ ${total.toFixed(2)}`;
+      const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+      window.open(url, '_blank');
+    }
+
+    function abrirWhatsApp() {
+      const numero = '552125963013'; // Substitua pelo número desejado com DDI e DDD (sem sinais)
+      const mensagem = 'Olá! Gostaria de conversar com você pelo WhatsApp.';
+      const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+      window.open(url, '_blank');
+    }
+  </script>
+
+</body>
+</html>
